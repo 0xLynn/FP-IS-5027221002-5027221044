@@ -4,14 +4,11 @@
 #include <ESP8266WiFi.h>
 #include <PubSubClient.h>
 
-
-// Update these with values suitable for your network.
-
 const char* ssid = "L y n n";
 const char* pswd = "Hazelnut";
 
-const char* mqtt_server = "167.172.87.186"; //Broker IP/URL
-const char* topic = "/kel14/room/temperature";    //Topic
+const char* mqtt_server = "167.172.87.186"; // IP Broker
+const char* topic = "/kel14/room/temperature"; //Topic
 
 long timeBetweenMessages = 1000 * 20 * 1;
 
@@ -20,18 +17,11 @@ PubSubClient client(espClient);
 long lastMsg = 0;
 int value = 0;
 
-int status = WL_IDLE_STATUS;     // the starting Wifi radio's status
-
-
+int status = WL_IDLE_STATUS;
 
 #define DHTPIN 5     // Digital pin connected to the DHT sensor 
 
-// Uncomment the type of sensor in use:
 #define DHTTYPE    DHT11     // DHT 11
-//#define DHTTYPE    DHT22     // DHT 22 (AM2302)
-
-
-
 DHT_Unified dht(DHTPIN, DHTTYPE);
 
 uint32_t delayMS;
@@ -39,7 +29,6 @@ uint32_t delayMS;
 
 void setup_wifi() {
   delay(10);
-  // We start by connecting to a WiFi network
   Serial.println();
   Serial.print("Connecting to ");
   Serial.println(ssid);
@@ -63,11 +52,8 @@ void callback(char* topic, byte* payload, unsigned int length) {
   }
   Serial.println();
 
-  // Switch on the LED if an 1 was received as first character
   if ((char)payload[0] == '1') {
-    digitalWrite(BUILTIN_LED, LOW);   // Turn the LED on (Note that LOW is the voltage level
-    // but actually the LED is on; this is because
-    // it is acive low on the ESP-01)
+    digitalWrite(BUILTIN_LED, LOW); // Turn the LED ON by making the voltage LOW
   } else {
     digitalWrite(BUILTIN_LED, HIGH);  // Turn the LED off by making the voltage HIGH
   }
@@ -94,15 +80,13 @@ String composeClientID() {
 }
 
 void reconnect() {
-  // Loop until we're reconnected
   while (!client.connected()) {
     Serial.print("Attempting MQTT connection...");
 
     String clientId = composeClientID() ;
     clientId += "-";
-    clientId += String(micros() & 0xff, 16); // to randomise. sort of
+    clientId += String(micros() & 0xff, 16); 
 
-    // Attempt to connect
     if (client.connect(clientId.c_str(),username,password)) {
       Serial.println("connected");
       String subscription;
@@ -113,13 +97,13 @@ void reconnect() {
       client.subscribe(subscription.c_str() );
       Serial.print("subscribed to : ");
       Serial.println(subscription);
-    } else {
+    } 
+    else {
       Serial.print("failed, rc=");
       Serial.print(client.state());
       Serial.print(" wifi=");
       Serial.print(WiFi.status());
       Serial.println(" try again in 5 seconds");
-      // Wait 5 seconds before retrying
       delay(5000);
     }
   }
