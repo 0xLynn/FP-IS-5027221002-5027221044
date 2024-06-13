@@ -337,7 +337,7 @@ File html ini merupakan code dari webpage yang kami gunakan untuk menampilkan da
 <img src="attachments/project-1.png">
 
 ## Project 2
-Project 2 membahas tentang pengembangan sebuah sistem pengukuran suhu dan kelembapan suatu ruangan dengan mengintegrasikan sensor DHT dengan NodeMCU. Output dari sensor DHT tersebutlah yang diteruskan ke broker MQTT, yang lalu diteruskan dan ditampilkan dalam bentuk webpage.
+Project 2 membahas tentang pengembangan sebuah sistem pengukuran suhu dan kelembapan suatu ruangan dengan mengintegrasikan sensor DHT dengan NodeMCU. Output dari sensor DHT tersebutlah yang diteruskan ke broker MQTT, yang lalu diteruskan dan ditampilkan dalam bentuk webpage dengan tambahan fitur enable/disable lampu LED. Selain itu, project ini juga mengimplementasi penggunaan sub dan pub python script dari MQTT protocol
 
 ### Attahcments
 - <a href="project-2/MQTT2Wemos.ino">MQTT2Wemos.ino</a>
